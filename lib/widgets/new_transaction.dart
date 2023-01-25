@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'adaptive_flat_button.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function _addNewTransaction;
@@ -52,59 +53,59 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            TextField(
-              decoration: InputDecoration(labelText: 'Title'),
-              controller: titleController,
-            ),
-            TextField(
-              decoration: const InputDecoration(labelText: 'Amount'),
-              controller: amountController,
-              keyboardType: TextInputType.number,
-              onSubmitted: (_) => _submitData(),
-            ),
-            Container(
-              height: 70,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    _selectedDate == null
-                        ? 'No date Chosen!'
-                        : DateFormat.yMd().format(_selectedDate as DateTime),
-                  ),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                        foregroundColor: Theme.of(context).primaryColor),
-                    onPressed: _presentDatePicker,
-                    child: const Text(
-                      'Choose Date',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+    return SingleChildScrollView(
+      child: Card(
+        child: Container(
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              TextField(
+                decoration: InputDecoration(labelText: 'Title'),
+                controller: titleController,
+              ),
+              TextField(
+                decoration: const InputDecoration(labelText: 'Amount'),
+                controller: amountController,
+                keyboardType: TextInputType.number,
+                onSubmitted: (_) => _submitData(),
+              ),
+              Container(
+                height: 70,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      _selectedDate == null
+                          ? 'No date Chosen!'
+                          : DateFormat.yMd().format(_selectedDate as DateTime),
                     ),
-                  )
-                ],
-              ),
-            ),
-            ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
-                  Theme.of(context).primaryColor,
+                    AdaptiveFlatButton(
+                      'Choose Date',
+                      _presentDatePicker,
+                    ),
+                  ],
                 ),
-                foregroundColor: MaterialStateProperty.all(
-                  Theme.of(context).textTheme.button?.color,
-                ), // Set the text color
               ),
-              child: const Text('Add Transaction'),
-              onPressed: _submitData,
-            )
-          ],
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    Theme.of(context).primaryColor,
+                  ),
+                  foregroundColor: MaterialStateProperty.all(
+                    Theme.of(context).textTheme.button?.color,
+                  ), // Set the text color
+                ),
+                child: const Text('Add Transaction'),
+                onPressed: _submitData,
+              )
+            ],
+          ),
         ),
       ),
     );
