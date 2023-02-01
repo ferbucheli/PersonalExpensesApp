@@ -1,7 +1,3 @@
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import '../model/transaction.dart';
 import 'transaction_item.dart';
@@ -10,7 +6,7 @@ class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
   final Function _deleteTransaction;
 
-  TransactionList(this.transactions, this._deleteTransaction);
+  const TransactionList(this.transactions, this._deleteTransaction);
 
   @override
   Widget build(BuildContext context) {
